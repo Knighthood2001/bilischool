@@ -1,4 +1,3 @@
-const axios = require('axios');
 const fs = require('fs');
 
 async function getUpSchoolInfo(uid) {
@@ -11,8 +10,8 @@ async function getUpSchoolInfo(uid) {
 
     try {
         // 获取用户主页HTML
-        const response = await axios.get(url, { headers });
-        const htmlContent = response.data;
+        const response = await fetch(url, { headers });
+        const htmlContent = await response.text();
 
         // 使用正则表达式提取JSON数据
         const pattern = /window\.__INITIAL_STATE__=(.*?);\(function\(\)/;
@@ -45,8 +44,8 @@ async function getUpSchoolInfo(uid) {
 // 示例使用
 (async () => {
     // const uid = "395939636";  // 测试UID：华东理工大学
-    // const uid = "245645656";  // 测试UID：清华大学
-    const uid = "5415414";
+    const uid = "245645656";  // 测试UID：清华大学
+    // const uid = "5415414";
     const schoolInfo = await getUpSchoolInfo(uid);
 
     if (schoolInfo) {
